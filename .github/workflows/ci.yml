@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: lycheeverse/lychee-action@v2
+        with:
+          args: --no-progress --exclude-path LICENSE-CONTENT --exclude '^https://github.com/zthewriter/' --accept '200,403,429' './**/*.md'
+          fail: true
+
+  diagrams:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Render every Mermaid diagram
+        run: |
+          echo '{"args":["--no-sandbox"]}' > /tmp/puppeteer.json
+          status=0
+          for f in $(grep -rl '```mermaid' --include='*.md' .); do
+            npx -y @mermaid-js/mermaid-cli@11 -p /tmp/puppeteer.json -i "$f" -o "/tmp/$(echo "$f" | tr '/' '_')" -q || { echo "Diagram failed: $f"; status=1; }
+          done
+          exit $status
+
+  workflows:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate n8n workflows
+        run: |
+          for f in workflows/*.json; do
+            jq -e '.nodes | length > 0' "$f" > /dev/null || { echo "Invalid workflow: $f"; exit 1; }
+            if grep -qiE '"(apiKey|token|password)"\s*:\s*"[^"]+' "$f"; then echo "Credential in $f"; exit 1; fi
+          done
+
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Scan history for committed secrets
+        run: docker run --rm -v "$PWD:/repo" ghcr.io/gitleaks/gitleaks:latest git /repo --verbose

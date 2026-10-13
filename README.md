@@ -27,11 +27,6 @@ No jargon without an explanation. No assumed computer science degree.
    test, deploy, and debug the right way
 7. [Rescue guides](docs/06-rescue-guides.md): what to do when it breaks
 
-## The 7-day ship it challenge
-
-Build and publish one small AI project in a week, with a checklist for each day and
-other builders cheering you on. [Join the challenge](challenge/README.md).
-
 ## Words you will see
 
 New term? Check the [glossary](glossary.md).

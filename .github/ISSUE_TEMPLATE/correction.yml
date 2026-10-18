@@ -1,0 +1,23 @@
+name: Correction
+description: Something on a page is wrong, outdated, or unclear.
+labels: [correction]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Page
+      description: Link to the page, or its path.
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is wrong
+      description: Quote the passage, and say what should change.
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: Source
+      description: A link or explanation that supports the correction, if you have one.

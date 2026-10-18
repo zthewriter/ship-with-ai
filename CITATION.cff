@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you cite this repository, cite it as below."
+title: "Ship with AI"
+abstract: "Plain-language guides for vibe coders: choose a web stack, tell an AI why, and ship a full-stack app, plus RAG, persistent context, and rescue guides."
+authors:
+  - name: "Zair Rogelio"
+version: "1.0.0"
+date-released: "2026-10-18"
+repository-code: "https://github.com/zthewriter/ship-with-ai"
+url: "https://github.com/zthewriter/ship-with-ai"
+license:
+  - CC-BY-4.0
+  - MIT
+keywords:
+  - "vibe coding"
+  - "web development"
+  - "retrieval-augmented generation"
+  - "agent skills"
+  - "AI coding"

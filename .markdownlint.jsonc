@@ -1,0 +1,14 @@
+{
+  // Prose is wrapped by hand at different widths, so line length is not a lint error.
+  "MD013": false,
+  // Guidance comments, <details>, and explicit <a id> anchors are inline HTML on purpose.
+  "MD033": false,
+  // Templates start with YAML front matter or a guidance comment, not an H1.
+  "MD041": false,
+  // Tables of links and code examples use bare URLs inside code spans.
+  "MD034": false,
+  // Templates repeat headings such as "Example" under different parents.
+  "MD024": { "siblings_only": true },
+  // Separator rows are written compactly (|---|), which renders the same as padded ones.
+  "MD060": false
+}
